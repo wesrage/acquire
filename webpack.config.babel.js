@@ -26,6 +26,7 @@ export default {
                      'stage-1',
                   ],
                   plugins: [
+                     'emotion',
                      'react-hot-loader/babel',
                   ],
                },
