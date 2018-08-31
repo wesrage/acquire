@@ -1,19 +1,42 @@
 {
-  "name": "acquire",
-  "version": "1.0.0",
-  "description": "Acquire",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wesrage/acquire.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/wesrage/acquire/issues"
-  },
-  "homepage": "https://github.com/wesrage/acquire#readme"
+   "name": "acquire",
+   "version": "1.0.0",
+   "description": "Acquire",
+   "main": "index.js",
+   "scripts": {
+      "start": "cross-env HTTP_PORT=8000 webpack-dev-server --hot --inline",
+      "test": "echo \"Error: no test specified\" && exit 1"
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/wesrage/acquire.git"
+   },
+   "author": "",
+   "license": "ISC",
+   "bugs": {
+      "url": "https://github.com/wesrage/acquire/issues"
+   },
+   "homepage": "https://github.com/wesrage/acquire#readme",
+   "devDependencies": {
+      "babel-core": "^6.26.3",
+      "babel-loader": "^7.1.5",
+      "babel-preset-env": "^1.7.0",
+      "babel-preset-react": "^6.24.1",
+      "babel-preset-stage-1": "^6.24.1",
+      "babel-register": "^6.26.0",
+      "cross-env": "^5.2.0",
+      "css-loader": "^1.0.0",
+      "file-loader": "^2.0.0",
+      "mini-css-extract-plugin": "^0.4.2",
+      "react-hot-loader": "^4.3.5",
+      "style-loader": "^0.23.0",
+      "webpack": "^4.17.1",
+      "webpack-cli": "^3.1.0",
+      "webpack-dev-server": "^3.1.7"
+   },
+   "dependencies": {
+      "prop-types": "^15.6.2",
+      "react": "^16.4.2",
+      "react-dom": "^16.4.2"
+   }
 }
