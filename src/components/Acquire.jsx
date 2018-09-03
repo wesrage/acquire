@@ -2,8 +2,11 @@ import React from 'react'
 import { hot } from 'react-hot-loader'
 import { injectGlobal } from 'emotion'
 import styled from 'react-emotion'
-import { initialState } from '../logic/setup'
+import { getInitialState } from '../logic/setup'
+import rules from '../logic/rules'
+import createActions from '../logic/actions'
 import Board from './Board'
+import TileRack from './TileRack'
 
 injectGlobal`
    * {
@@ -26,12 +29,18 @@ const GameRoot = styled.div`
 `
 
 class Acquire extends React.Component {
-   state = initialState
+   state = getInitialState(rules)
+
+   componentDidMount() {
+      const actions = createActions(rules)
+      this.setState(actions.startGame)
+   }
 
    render() {
       return (
          <GameRoot>
-            <Board tiles={this.state.tiles} />
+            <Board tiles={this.state.tiles} rowCount={rules.ROW_COUNT} />
+            <TileRack tiles={this.state.players[0].tiles} />
          </GameRoot>
       )
    }

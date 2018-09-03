@@ -10,24 +10,40 @@ const TileRow = styled.div`
 
 export default class Board extends React.Component {
    static propTypes = {
-      tiles: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+      rowCount: PropTypes.number.isRequired,
+      tiles: PropTypes.arrayOf(
+         PropTypes.shape({
+            dead: PropTypes.bool,
+            chain: PropTypes.number,
+            holder: PropTypes.number,
+            placer: PropTypes.number,
+         })
+      ).isRequired,
    }
 
    render() {
+      const colCount = this.props.tiles.length / this.props.rowCount
       return (
          <div>
-            {this.props.tiles.map((row, rowIndex) => (
-               <TileRow key={rowIndex}>
-                  {row.map((tile, colIndex) => (
-                     <Tile
-                        key={getTileName(rowIndex, colIndex)}
-                        row={rowIndex}
-                        col={colIndex}
-                        owner={tile}
-                     />
-                  ))}
-               </TileRow>
-            ))}
+            {Array(this.props.rowCount)
+               .fill()
+               .map((_, rowIndex) => (
+                  <TileRow key={rowIndex}>
+                     {this.props.tiles
+                        .slice(
+                           rowIndex * colCount,
+                           rowIndex * colCount + colCount
+                        )
+                        .map((tile, colIndex) => (
+                           <Tile
+                              key={getTileName(rowIndex, colIndex)}
+                              row={rowIndex}
+                              col={colIndex}
+                              {...(tile || {})}
+                           />
+                        ))}
+                  </TileRow>
+               ))}
          </div>
       )
    }
