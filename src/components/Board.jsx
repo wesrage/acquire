@@ -13,7 +13,6 @@ export default class Board extends React.Component {
       rowCount: PropTypes.number.isRequired,
       tiles: PropTypes.arrayOf(
          PropTypes.shape({
-            dead: PropTypes.bool,
             chain: PropTypes.number,
             holder: PropTypes.number,
             placer: PropTypes.number,
@@ -22,17 +21,17 @@ export default class Board extends React.Component {
    }
 
    render() {
-      const colCount = this.props.tiles.length / this.props.rowCount
+      const rowCount = this.props.tiles.length / this.props.colCount
       return (
          <div>
-            {Array(this.props.rowCount)
+            {Array(rowCount)
                .fill()
                .map((_, rowIndex) => (
                   <TileRow key={rowIndex}>
                      {this.props.tiles
                         .slice(
-                           rowIndex * colCount,
-                           rowIndex * colCount + colCount
+                           rowIndex * this.props.colCount,
+                           rowIndex * this.props.colCount + this.props.colCount
                         )
                         .map((tile, colIndex) => (
                            <Tile

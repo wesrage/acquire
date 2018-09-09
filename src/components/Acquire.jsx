@@ -5,6 +5,7 @@ import styled from 'react-emotion'
 import { compose, bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as actionCreators from '../logic/reducer'
+import createInspector from '../logic/inspector'
 import Board from './Board'
 import TileRack from './TileRack'
 
@@ -21,6 +22,7 @@ const GameRoot = styled.div`
    align-items: center;
    background-color: #222;
    display: flex;
+   flex-direction: column;
    height: 100vh;
    font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
    justify-content: center;
@@ -38,9 +40,11 @@ class Acquire extends React.Component {
          <GameRoot>
             <Board
                tiles={this.props.tiles}
-               rowCount={this.props.rules.ROW_COUNT}
+               colCount={this.props.rules.COL_COUNT}
             />
-            <TileRack tiles={this.props.players[0].tiles} />
+            <TileRack
+               colCount={this.props.rules.COL_COUNT}
+            />
          </GameRoot>
       )
    }
@@ -52,6 +56,6 @@ export default compose(
       state => state,
       dispatch => ({
          actions: bindActionCreators(actionCreators, dispatch),
-      }),
+      })
    )
 )(Acquire)

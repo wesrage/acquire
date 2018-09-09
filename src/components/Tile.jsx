@@ -6,7 +6,7 @@ import { rowToLetter } from '../logic/util'
 const TILE_SIZE = 60
 
 const TileRoot = styled.div`
-   background-color: ${props => props.placed ? '#888' : '#000'};
+   background-color: ${props => (props.placed ? '#888' : '#000')};
    border-color: #222;
    border-style: solid;
    border-width: 1px;
@@ -32,7 +32,10 @@ export default class Tile extends React.Component {
 
    render() {
       return (
-         <TileRoot placed={this.props.placer !== undefined}>
+         <TileRoot
+            className={this.props.className}
+            placed={this.props.placer !== undefined}
+         >
             <span>
                {this.props.col + 1}
                <RowIndicator>{rowToLetter(this.props.row)}</RowIndicator>
