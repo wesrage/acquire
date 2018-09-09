@@ -2,9 +2,9 @@ import React from 'react'
 import { hot } from 'react-hot-loader'
 import { injectGlobal } from 'emotion'
 import styled from 'react-emotion'
-import { getInitialState } from '../logic/setup'
-import rules from '../logic/rules'
-import createActions from '../logic/actions'
+import { compose, bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as actionCreators from '../logic/reducer'
 import Board from './Board'
 import TileRack from './TileRack'
 
@@ -29,21 +29,29 @@ const GameRoot = styled.div`
 `
 
 class Acquire extends React.Component {
-   state = getInitialState(rules)
-
    componentDidMount() {
-      const actions = createActions(rules)
-      this.setState(actions.startGame)
+      this.props.actions.startGame()
    }
 
    render() {
       return (
          <GameRoot>
-            <Board tiles={this.state.tiles} rowCount={rules.ROW_COUNT} />
-            <TileRack tiles={this.state.players[0].tiles} />
+            <Board
+               tiles={this.props.tiles}
+               rowCount={this.props.rules.ROW_COUNT}
+            />
+            <TileRack tiles={this.props.players[0].tiles} />
          </GameRoot>
       )
    }
 }
 
-export default hot(module)(Acquire)
+export default compose(
+   hot(module),
+   connect(
+      state => state,
+      dispatch => ({
+         actions: bindActionCreators(actionCreators, dispatch),
+      }),
+   )
+)(Acquire)

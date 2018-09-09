@@ -39,7 +39,7 @@ export default class Board extends React.Component {
                               key={getTileName(rowIndex, colIndex)}
                               row={rowIndex}
                               col={colIndex}
-                              {...(tile || {})}
+                              {...tile || {}}
                            />
                         ))}
                   </TileRow>
